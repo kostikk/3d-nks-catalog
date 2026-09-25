@@ -23,7 +23,7 @@ const PRODUCTS = [
     name: 'Робот-фигурка',
     cat: 'Фигурки',
     meta: '80 мм · PLA',
-    price: 45000,
+    price: 10000,
     img: 'images/robot.jpg',
     description: 'Небольшая декоративная 3D-фигурка. Можно заказать в другом цвете.'
   },
