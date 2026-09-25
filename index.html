@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>3D NKS — каталог</title>
+<script src="https://telegram.org/js/telegram-web-app.js?63"></script>
+<style>
+:root{--bg:#080b10;--card:#121821;--muted:#8d98a8;--text:#f5f7fa;--accent:#19bfff;--accent2:#2878ff;--line:#202a36}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+.app{max-width:720px;margin:auto;padding:12px 14px 92px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:8px 2px 14px}
+.logo{font-size:24px;font-weight:900;letter-spacing:-1px}.logo span{color:var(--accent)}
+.small{color:var(--muted);font-size:12px}
+.hero{border-radius:22px;padding:22px;background:linear-gradient(135deg,#101927,#0d1118);border:1px solid var(--line);overflow:hidden;position:relative}
+.hero h1{font-size:30px;margin:0 0 7px}.hero p{color:#aeb8c6;margin:0 0 18px;line-height:1.45}
+.btn{border:0;border-radius:14px;padding:14px 18px;background:linear-gradient(90deg,var(--accent2),var(--accent));color:white;font-weight:800;font-size:15px;cursor:pointer}
+.search{margin:14px 0;display:flex;background:#111720;border:1px solid var(--line);border-radius:14px;padding:0 14px}
+.search input{width:100%;border:0;outline:0;background:transparent;color:white;padding:14px;font-size:15px}
+h2{font-size:20px;margin:24px 2px 12px}.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.cat,.product{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.cat{padding:13px;cursor:pointer}.cat b{display:block;margin-top:8px}.cat small{color:var(--muted)}
+.cat .emoji{font-size:28px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.product img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#202833}.info{padding:11px}.name{font-weight:800}.price{color:var(--accent);font-size:18px;font-weight:900;margin:7px 0}.meta{font-size:12px;color:var(--muted)}
+.product button{width:100%;margin-top:8px}.empty{padding:30px;text-align:center;color:var(--muted);display:none}
+.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(8,11,16,.96);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:5}
+.navin{width:min(720px,100%);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+.nav button{background:none;border:0;color:#8792a1;padding:7px;font-size:12px}.nav button.active{color:var(--accent)}.nav i{display:block;font-style:normal;font-size:20px;margin-bottom:2px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:flex-end;z-index:10}.sheet{width:min(720px,100%);margin:auto;background:#10161e;border-radius:24px 24px 0 0;padding:18px;border:1px solid var(--line);max-height:88vh;overflow:auto}.sheet img{width:100%;border-radius:18px;max-height:380px;object-fit:cover}.close{float:right;background:#222b36;color:white;border:0;border-radius:50%;width:34px;height:34px}
+@media(min-width:600px){.app{padding-top:20px}.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div class="logo">3D <span>NKS</span></div><div class="small">3D PRINTING STUDIO</div></div>
+  <section class="hero">
+    <h1>3D-модели и печать</h1>
+    <p>Фигурки, брелоки, аксессуары и изделия на заказ.</p>
+    <button class="btn" onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">🛍 Открыть каталог</button>
+  </section>
+  <div class="search"><span style="padding-top:13px">⌕</span><input id="search" placeholder="Поиск товара..." oninput="render()"></div>
+  <h2>Категории</h2>
+  <div class="cats">
+    <div class="cat" onclick="filterCat('Фигурки')"><div class="emoji">🐉</div><b>Фигурки</b><small>3D модели</small></div>
+    <div class="cat" onclick="filterCat('Брелоки')"><div class="emoji">🔑</div><b>Брелоки</b><small>Мото и авто</small></div>
+    <div class="cat" onclick="filterCat('Для стаканов')"><div class="emoji">☕</div><b>Для стаканов</b><small>Кофейни</small></div>
+  </div>
+  <h2 id="catalog">Каталог <span class="small" id="count"></span></h2>
+  <div class="grid" id="products"></div>
+  <div class="empty" id="empty">Ничего не найдено</div>
+</div>
+
+<div class="nav"><div class="navin">
+<button class="active" onclick="topPage()"><i>⌂</i>Главная</button>
+<button onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})"><i>▦</i>Каталог</button>
+<button onclick="openCart()"><i>🛒</i>Корзина <span id="cartCount"></span></button>
+<button onclick="contact()"><i>☎</i>Контакты</button>
+</div></div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+ <div class="sheet" id="sheet"></div>
+</div>
+
+<script>
+const products=[
+ {id:1,name:"Дракон Mini",cat:"Фигурки",price:50000,size:"80 мм",img:"https://images.unsplash.com/photo-1614728263952-84ea256f9679?auto=format&fit=crop&w=900&q=80",desc:"Детализированная 3D-фигурка. Можно напечатать в нескольких цветах."},
+ {id:2,name:"Брелок Мото",cat:"Брелоки",price:35000,size:"60 мм",img:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80",desc:"Компактный брелок с мото-тематикой."},
+ {id:3,name:"Фигурка для стакана",cat:"Для стаканов",price:30000,size:"50 мм",img:"https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=80",desc:"Декоративная фигурка для оформления стаканов."},
+ {id:4,name:"Красный дракон",cat:"Фигурки",price:55000,size:"90 мм",img:"https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?auto=format&fit=crop&w=900&q=80",desc:"Большая декоративная фигурка."},
+ {id:5,name:"Мото-брелок Sport",cat:"Брелоки",price:40000,size:"65 мм",img:"https://images.unsplash.com/photo-1558980664-10ea7d9a7c20?auto=format&fit=crop&w=900&q=80",desc:"Брелок в стиле спортивного мотоцикла."},
+ {id:6,name:"Котик для стакана",cat:"Для стаканов",price:30000,size:"55 мм",img:"https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?auto=format&fit=crop&w=900&q=80",desc:"Милая фигурка для кофейных стаканов."}
+];
+let category="Все",cart=[];
+function money(n){return n.toLocaleString('ru-RU')+" сум"}
+function filterCat(c){category=c;document.querySelector('#catalog').scrollIntoView({behavior:'smooth'});render()}
+function render(){
+ const q=document.querySelector('#search').value.toLowerCase();
+ const list=products.filter(p=>(category==="Все"||p.cat===category)&&(p.name.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)));
+ document.querySelector('#count').textContent=`· ${list.length}`;
+ document.querySelector('#empty').style.display=list.length?'none':'block';
+ document.querySelector('#products').innerHTML=list.map(p=>`<article class="product">
+ <img src="${p.img}" loading="lazy" onerror="this.style.visibility='hidden'">
+ <div class="info"><div class="name">${p.name}</div><div class="meta">${p.size} · PLA</div><div class="price">${money(p.price)}</div>
+ <button class="btn" onclick="openProduct(${p.id})">Подробнее</button></div></article>`).join('');
+ document.querySelector('#cartCount').textContent=cart.length?`(${cart.length})`:'';
+}
+function openProduct(id){
+ const p=products.find(x=>x.id===id);
+ document.querySelector('#sheet').innerHTML=`<button class="close" onclick="closeModal()">×</button><img src="${p.img}"><h2>${p.name}</h2><div class="meta">${p.cat} · ${p.size} · PLA</div><div class="price">${money(p.price)}</div><p style="color:#aeb8c6;line-height:1.5">${p.desc}</p><button class="btn" style="width:100%" onclick="add(${p.id})">🛒 Добавить в корзину</button>`;
+ document.querySelector('#modal').style.display='flex';
+}
+function closeModal(){document.querySelector('#modal').style.display='none'}
+function add(id){cart.push(id);closeModal();render();telegram('Товар добавлен в корзину')}
+function openCart(){
+ if(!cart.length){telegram('Корзина пока пустая');return}
+ const items=cart.map(id=>products.find(p=>p.id===id));
+ const total=items.reduce((s,p)=>s+p.price,0);
+ document.querySelector('#sheet').innerHTML=`<button class="close" onclick="closeModal()">×</button><h2>Корзина</h2>${items.map(p=>`<p><b>${p.name}</b><br><span class="price">${money(p.price)}</span></p>`).join('')}<hr style="border-color:#26313d"><h2>Итого: ${money(total)}</h2><button class="btn" style="width:100%" onclick="order()">📩 Оформить заказ</button>`;
+ document.querySelector('#modal').style.display='flex';
+}
+function order(){
+ const names=cart.map(id=>products.find(p=>p.id===id).name).join(', ');
+ const text=`Заказ 3D NKS: ${names}`;
+ if(window.Telegram?.WebApp?.sendData) window.Telegram.WebApp.sendData(JSON.stringify({type:'order',items:cart,names:text}));
+ telegram('Заявка подготовлена');
+}
+function telegram(msg){
+ if(window.Telegram?.WebApp){window.Telegram.WebApp.showAlert(msg)}else alert(msg)
+}
+function contact(){telegram('Свяжитесь с нами через Telegram-бота или укажите ваш @username в настройках проекта.')}
+function topPage(){window.scrollTo({top:0,behavior:'smooth'})}
+if(window.Telegram?.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand()}
+render();
+</script>
+</body>
+</html>
