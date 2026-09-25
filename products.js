@@ -41,7 +41,7 @@ const PRODUCTS = [
     name: 'Гибкий дракон',
     cat: 'Фигурки',
     meta: '120 мм · PLA',
-    price: 60000,
+    price: 30000,
     img: 'images/dragon.jpg',
     badge: 'Популярное',
     description: 'Гибкая подвижная фигурка дракона.'
