@@ -20,10 +20,10 @@
 const PRODUCTS = [
   {
     id: 'robot',
-    name: 'Робот-фигурка',
-    cat: 'Фигурки',
+    name: 'Собачка',
+    cat: 'Брелок',
     meta: '80 мм · PLA',
-    price: 45000,
+    price: 10000,
     img: 'images/robot.jpg',
     description: 'Небольшая декоративная 3D-фигурка. Можно заказать в другом цвете.'
   },
@@ -32,7 +32,7 @@ const PRODUCTS = [
     name: 'Табличка 3D NKS',
     cat: 'Аксессуары',
     meta: 'по заказу · PLA',
-    price: 35000,
+    price: 5000,
     img: 'images/nameplate.jpg',
     description: 'Именная или брендовая табличка. Текст и цвет можно изменить под заказ.'
   },
@@ -41,7 +41,7 @@ const PRODUCTS = [
     name: 'Гибкий дракон',
     cat: 'Фигурки',
     meta: '120 мм · PLA',
-    price: 60000,
+    price: 40000,
     img: 'images/dragon.jpg',
     badge: 'Популярное',
     description: 'Гибкая подвижная фигурка дракона.'
@@ -51,7 +51,7 @@ const PRODUCTS = [
     name: 'Скелет — подвижная фигурка',
     cat: 'Фигурки',
     meta: '120 мм · PLA',
-    price: 55000,
+    price: 10000,
     img: 'images/skeleton.jpg',
     description: 'Подвижная декоративная фигурка.'
   },
@@ -69,7 +69,7 @@ const PRODUCTS = [
     name: 'Honda Keychain',
     cat: 'Брелоки',
     meta: '60 мм · PLA',
-    price: 35000,
+    price: 10000,
     img: 'images/honda.jpg',
     description: 'Брелок Honda для ключей или сумки.'
   },
@@ -87,7 +87,7 @@ const PRODUCTS = [
     name: '3D-печать под заказ',
     cat: 'Под заказ',
     meta: 'по запросу · PLA',
-    price: 30000,
+    price: 80000,
     img: 'images/printing.jpg',
     badge: 'На заказ',
     description: 'Создание и печать модели по вашей идее или готовому STL-файлу.'
