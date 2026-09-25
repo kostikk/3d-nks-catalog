@@ -1,31 +1,179 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>3D NKS — каталог</title><script src="https://telegram.org/js/telegram-web-app.js"></script>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3D NKS — каталог</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#080b10;color:#fff;font-family:Arial,sans-serif}main{max-width:720px;margin:auto;padding:18px 14px 90px}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.logo{font-size:25px;font-weight:900}.logo span{color:#19bfff}small{display:block;color:#8d98a8;margin-top:7px}
-.hero{padding:24px;border-radius:22px;background:linear-gradient(135deg,#101927,#0d1118);border:1px solid #202a36}h1{font-size:30px;margin:0 0 8px}p{color:#aeb8c6;line-height:1.5}.hero button,.product button{border:0;border-radius:13px;background:linear-gradient(90deg,#2878ff,#19bfff);color:white;font-weight:800;padding:13px 17px;cursor:pointer}
-.search{margin:15px 0;padding:14px;border-radius:14px;background:#111720;border:1px solid #202a36}.search input{width:100%;background:none;border:0;outline:0;color:white;font-size:15px}
-h2{margin-top:25px}.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.cat{background:#121821;border:1px solid #202a36;border-radius:16px;padding:14px;cursor:pointer}.cat div{font-size:27px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.product{background:#121821;border:1px solid #202a36;border-radius:16px;overflow:hidden}.product img{width:100%;aspect-ratio:1;object-fit:cover}.info{padding:11px}.info b{display:block;font-size:15px}.info strong{display:block;color:#19bfff;font-size:18px;margin:7px 0}.info button{width:100%}
+*{box-sizing:border-box}
+body{margin:0;background:#080b10;color:#fff;font-family:Arial,sans-serif}
+main{max-width:720px;margin:auto;padding:18px 14px 90px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.logo{font-size:25px;font-weight:900}.logo span{color:#19bfff}
+small{display:block;color:#8d98a8;margin-top:7px}
+.hero{padding:24px;border-radius:22px;background:linear-gradient(135deg,#101927,#0d1118);border:1px solid #202a36}
+h1{font-size:30px;margin:0 0 8px}p{color:#aeb8c6;line-height:1.5}
+button{border:0;border-radius:13px;background:linear-gradient(90deg,#2878ff,#19bfff);color:white;font-weight:800;padding:13px 17px;cursor:pointer}
+.search{margin:15px 0;padding:14px;border-radius:14px;background:#111720;border:1px solid #202a36}
+.search input{width:calc(100% - 25px);background:none;border:0;outline:0;color:white;font-size:15px}
+h2{margin-top:25px}.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.cat{background:#121821;border:1px solid #202a36;border-radius:16px;padding:14px;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.product{background:#121821;border:1px solid #202a36;border-radius:16px;overflow:hidden}
+.product img{width:100%;aspect-ratio:1;object-fit:cover}
+.info{padding:11px}.info b{display:block;font-size:15px}.info strong{display:block;color:#19bfff;font-size:18px;margin:7px 0}.info button{width:100%}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#090d13;border-top:1px solid #202a36;padding:12px;text-align:center;color:#19bfff}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:10;padding:18px}
+.modal-card{max-width:520px;margin:8vh auto 0;background:#111720;border:1px solid #263242;border-radius:22px;padding:20px}
+.modal-card h3{margin:0 0 6px;font-size:22px}.selected{color:#19bfff;font-weight:800;margin-bottom:14px}
+.field{margin:10px 0}.field label{display:block;color:#9eabba;font-size:13px;margin-bottom:6px}
+.field input,.field textarea{width:100%;border:1px solid #293545;background:#0b1017;color:#fff;border-radius:12px;padding:12px;outline:none;font-size:15px}
+.field textarea{min-height:80px;resize:vertical}
+.actions{display:flex;gap:10px;margin-top:15px}.actions button{flex:1}.cancel{background:#232c38}
+.note{font-size:12px;color:#7f8b9b;margin-top:10px}
 @media(min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}}
-</style></head><body><main>
+</style>
+</head>
+<body>
+<main>
 <header><div class="logo">3D <span>NKS</span></div><small>3D PRINTING STUDIO</small></header>
-<section class="hero"><h1>3D-модели и печать</h1><p>Фигурки, брелоки, аксессуары и изделия на заказ.</p><button onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">🛍 Открыть каталог</button></section>
+
+<section class="hero">
+<h1>3D-модели и печать</h1>
+<p>Фигурки, брелоки, аксессуары и изделия на заказ.</p>
+<button onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">🛍 Открыть каталог</button>
+</section>
+
 <div class="search">⌕ <input id="q" placeholder="Поиск товара..." oninput="filter()"></div>
-<h2>Категории</h2><div class="cats"><div class="cat" onclick="cat='Фигурки';filter()">🐉<b>Фигурки</b></div><div class="cat" onclick="cat='Брелоки';filter()">🔑<b>Брелоки</b></div><div class="cat" onclick="cat='Аксессуары';filter()">🏷️<b>Аксессуары</b></div></div>
-<h2 id="catalog">Каталог</h2><div class="grid" id="products"><article class="product"><img src="images/robot.jpg"><div class="info"><b>Робот-фигурка</b><small>80 мм · PLA</small><strong>45 000 сум</strong><button onclick="order('Робот-фигурка' 45000)">🛒 Заказать</button></div></article>
-<article class="product"><img src="images/nameplate.jpg"><div class="info"><b>Табличка 3D NKS</b><small>по заказу · PLA</small><strong>35 000 сум</strong><button onclick="order('Табличка 3D NKS' 35000)">🛒 Заказать</button></div></article>
-<article class="product"><img src="images/dragon.jpg"><div class="info"><b>Гибкий дракон</b><small>120 мм · PLA</small><strong>60 000 сум</strong><button onclick="order('Гибкий дракон' 60000)">🛒 Заказать</button></div></article>
-<article class="product"><img src="images/skeleton.jpg"><div class="info"><b>Скелет — подвижная фигурка</b><small>120 мм · PLA</small><strong>55 000 сум</strong><button onclick="order('Скелет — подвижная фигурка' 55000)">🛒 Заказать</button></div></article>
-<article class="product"><img src="images/bikers.jpg"><div class="info"><b>Фигурки байкеров</b><small>по заказу · PLA</small><strong>90 000 сум</strong><button onclick="order('Фигурки байкеров' 90000)">🛒 Заказать</button></div></article>
-<article class="product"><img src="images/honda.jpg"><div class="info"><b>Honda Keychain</b><small>60 мм · PLA</small><strong>35 000 сум</strong><button onclick="order('Honda Keychain' 35000)">🛒 Заказать</button></div></article>
-<article class="product"><img src="images/rabbit.jpg"><div class="info"><b>Кролик в очках</b><small>100 мм · PLA</small><strong>65 000 сум</strong><button onclick="order('Кролик в очках' 65000)">🛒 Заказать</button></div></article>
-<article class="product"><img src="images/printing.jpg"><div class="info"><b>3D-печать под заказ</b><small>по запросу · PLA</small><strong>30 000 сум</strong><button onclick="order('3D-печать под заказ' 30000)">🛒 Заказать</button></div></article></div>
-</main><div class="nav">3D NKS · Каталог · Заказы</div>
+
+<h2>Категории</h2>
+<div class="cats">
+<div class="cat" onclick="setCat('Фигурки')">🐉 <b>Фигурки</b></div>
+<div class="cat" onclick="setCat('Брелоки')">🔑 <b>Брелоки</b></div>
+<div class="cat" onclick="setCat('Аксессуары')">🏷️ <b>Аксессуары</b></div>
+</div>
+
+<h2 id="catalog">Каталог</h2>
+<div class="grid" id="products">
+
+<article class="product" data-cat="Фигурки"><img src="images/robot.jpg"><div class="info"><b>Робот-фигурка</b><small>80 мм · PLA</small><strong>45 000 сум</strong><button onclick="order('Робот-фигурка',45000)">🛒 Заказать</button></div></article>
+
+<article class="product" data-cat="Аксессуары"><img src="images/nameplate.jpg"><div class="info"><b>Табличка 3D NKS</b><small>по заказу · PLA</small><strong>35 000 сум</strong><button onclick="order('Табличка 3D NKS',35000)">🛒 Заказать</button></div></article>
+
+<article class="product" data-cat="Фигурки"><img src="images/dragon.jpg"><div class="info"><b>Гибкий дракон</b><small>120 мм · PLA</small><strong>60 000 сум</strong><button onclick="order('Гибкий дракон',60000)">🛒 Заказать</button></div></article>
+
+<article class="product" data-cat="Фигурки"><img src="images/skeleton.jpg"><div class="info"><b>Скелет — подвижная фигурка</b><small>120 мм · PLA</small><strong>55 000 сум</strong><button onclick="order('Скелет — подвижная фигурка',55000)">🛒 Заказать</button></div></article>
+
+<article class="product" data-cat="Фигурки"><img src="images/bikers.jpg"><div class="info"><b>Фигурки байкеров</b><small>по заказу · PLA</small><strong>90 000 сум</strong><button onclick="order('Фигурки байкеров',90000)">🛒 Заказать</button></div></article>
+
+<article class="product" data-cat="Брелоки"><img src="images/honda.jpg"><div class="info"><b>Honda Keychain</b><small>60 мм · PLA</small><strong>35 000 сум</strong><button onclick="order('Honda Keychain',35000)">🛒 Заказать</button></div></article>
+
+<article class="product" data-cat="Фигурки"><img src="images/rabbit.jpg"><div class="info"><b>Кролик в очках</b><small>100 мм · PLA</small><strong>65 000 сум</strong><button onclick="order('Кролик в очках',65000)">🛒 Заказать</button></div></article>
+
+<article class="product" data-cat="Под заказ"><img src="images/printing.jpg"><div class="info"><b>3D-печать под заказ</b><small>по запросу · PLA</small><strong>30 000 сум</strong><button onclick="order('3D-печать под заказ',30000)">🛒 Заказать</button></div></article>
+
+</div>
+</main>
+
+<div class="nav">3D NKS · Каталог · Заказы</div>
+
+<div class="modal" id="orderModal">
+<div class="modal-card">
+<h3>Оформление заказа</h3>
+<div class="selected" id="selectedProduct"></div>
+
+<div class="field"><label>Ваше имя</label><input id="customerName" placeholder="Например: Косберген"></div>
+<div class="field"><label>Телефон / Telegram</label><input id="customerContact" placeholder="+998 ... или @username"></div>
+<div class="field"><label>Количество</label><input id="quantity" type="number" min="1" value="1"></div>
+<div class="field"><label>Комментарий</label><textarea id="comment" placeholder="Цвет, размер, пожелания..."></textarea></div>
+
+<div class="actions">
+<button class="cancel" onclick="closeOrder()">Отмена</button>
+<button onclick="submitOrder()">📩 Отправить</button>
+</div>
+<div class="note">После отправки откроется Telegram. Сейчас каталог формирует готовый текст заказа.</div>
+</div>
+</div>
+
 <script>
-let cat='Все';
-function filter(){let q=document.getElementById('q').value.toLowerCase();document.querySelectorAll('.product').forEach(x=>{let t=x.innerText.toLowerCase();x.style.display=(!q||t.includes(q))?'block':'none'})}
-function order(name,price){let msg='Заказ: '+name+' — '+price+' сум';if(window.Telegram?.WebApp?.showAlert)Telegram.WebApp.showAlert(msg);else alert(msg)}
-if(window.Telegram?.WebApp)Telegram.WebApp.ready();
-</script></body></html>
+let currentCategory='Все';
+let selected={name:'',price:0};
+
+function setCat(c){
+ currentCategory=(currentCategory===c?'Все':c);
+ filter();
+}
+
+function filter(){
+ const q=document.getElementById('q').value.toLowerCase().trim();
+ document.querySelectorAll('.product').forEach(x=>{
+   const text=x.innerText.toLowerCase();
+   const catOk=currentCategory==='Все'||x.dataset.cat===currentCategory;
+   const qOk=!q||text.includes(q);
+   x.style.display=(catOk&&qOk)?'block':'none';
+ });
+}
+
+function order(name,price){
+ selected={name,price};
+ document.getElementById('selectedProduct').textContent=name+' — '+price.toLocaleString('ru-RU')+' сум';
+ document.getElementById('orderModal').style.display='block';
+ if(window.Telegram?.WebApp?.HapticFeedback) Telegram.WebApp.HapticFeedback.impactOccurred('light');
+}
+
+function closeOrder(){
+ document.getElementById('orderModal').style.display='none';
+}
+
+function submitOrder(){
+ const customer=document.getElementById('customerName').value.trim();
+ const contact=document.getElementById('customerContact').value.trim();
+ const qty=Math.max(1,parseInt(document.getElementById('quantity').value||'1',10));
+ const comment=document.getElementById('comment').value.trim();
+
+ if(!customer || !contact){
+   const msg='Заполните имя и телефон / Telegram';
+   if(window.Telegram?.WebApp?.showAlert) Telegram.WebApp.showAlert(msg); else alert(msg);
+   return;
+ }
+
+ const total=selected.price*qty;
+ const text=
+ `🛍 НОВЫЙ ЗАКАЗ 3D NKS\n\n`+
+ `Товар: ${selected.name}\n`+
+ `Количество: ${qty}\n`+
+ `Цена: ${total.toLocaleString('ru-RU')} сум\n\n`+
+ `Имя: ${customer}\n`+
+ `Контакт: ${contact}\n`+
+ `Комментарий: ${comment||'—'}`;
+
+ /*
+  * Безопасный вариант для текущего GitHub Pages:
+  * каталог НЕ хранит BotFather token.
+  * Открывается Telegram-бот с подготовленным start-параметром.
+  * Для автоматической доставки заказа владельцу нужен небольшой backend/webhook.
+  */
+ const payload=btoa(unescape(encodeURIComponent(JSON.stringify({
+   product:selected.name,qty,total,customer,contact,comment
+ })))).replace(/=+$/,'').replace(/\+/g,'-').replace(/\//g,'_').slice(0,64);
+
+ const botUrl='https://t.me/nks_3d_bot?start=order_'+payload;
+
+ if(window.Telegram?.WebApp?.openTelegramLink){
+   Telegram.WebApp.openTelegramLink(botUrl);
+ }else{
+   window.open(botUrl,'_blank');
+ }
+}
+
+window.addEventListener('click',e=>{
+ if(e.target===document.getElementById('orderModal')) closeOrder();
+});
+if(window.Telegram?.WebApp){
+ Telegram.WebApp.ready();
+ Telegram.WebApp.expand();
+}
+</script>
+</body>
+</html>
