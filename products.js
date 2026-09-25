@@ -20,8 +20,8 @@
 const PRODUCTS = [
   {
     id: 'robot',
-    name: 'Робот-фигурка',
-    cat: 'Фигурки',
+    name: 'Собачка ',
+    cat: 'Брелоки',
     meta: '80 мм · PLA',
     price: 10000,
     img: 'images/robot.jpg',
