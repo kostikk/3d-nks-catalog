@@ -32,7 +32,7 @@ const PRODUCTS = [
     name: 'Табличка 3D NKS',
     cat: 'Аксессуары',
     meta: 'по заказу · PLA',
-    price: 35000,
+    price: 5000,
     img: 'images/nameplate.jpg',
     description: 'Именная или брендовая табличка. Текст и цвет можно изменить под заказ.'
   },
@@ -51,7 +51,7 @@ const PRODUCTS = [
     name: 'Скелет — подвижная фигурка',
     cat: 'Фигурки',
     meta: '120 мм · PLA',
-    price: 55000,
+    price: 10000,
     img: 'images/skeleton.jpg',
     description: 'Подвижная декоративная фигурка.'
   },
@@ -69,7 +69,7 @@ const PRODUCTS = [
     name: 'Honda Keychain',
     cat: 'Брелоки',
     meta: '60 мм · PLA',
-    price: 35000,
+    price: 10000,
     img: 'images/honda.jpg',
     description: 'Брелок Honda для ключей или сумки.'
   },
@@ -78,7 +78,7 @@ const PRODUCTS = [
     name: 'Кролик в очках',
     cat: 'Фигурки',
     meta: '100 мм · PLA',
-    price: 65000,
+    price: 40000,
     img: 'images/rabbit.jpg',
     description: 'Декоративная фигурка кролика.'
   },
@@ -87,7 +87,7 @@ const PRODUCTS = [
     name: '3D-печать под заказ',
     cat: 'Под заказ',
     meta: 'по запросу · PLA',
-    price: 30000,
+    price: 80000,
     img: 'images/printing.jpg',
     badge: 'На заказ',
     description: 'Создание и печать модели по вашей идее или готовому STL-файлу.'
