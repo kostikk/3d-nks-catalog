@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<title>Секретное послание ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Arial,sans-serif;background:linear-gradient(135deg,#111,#2b2b2b);display:flex;align-items:center;justify-content:center;padding:20px;color:#111}
+.card{width:100%;max-width:420px;background:#fff;border-radius:28px;padding:30px 24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.logo{font-weight:800;letter-spacing:3px;font-size:13px;color:#777;margin-bottom:18px}
+.heart{font-size:54px;margin-bottom:8px}
+h1{margin:0 0 10px;font-size:30px}
+.message{background:#f5f5f5;border-radius:18px;padding:18px;text-align:left;line-height:1.6;font-size:17px;margin:20px 0}
+audio{width:100%;margin:8px 0 4px}
+.hint{font-size:13px;color:#888;margin-top:13px;line-height:1.4}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">3D NKS • NFC GIFT</div>
+  <div class="heart">❤️</div>
+  <h1 id="name">Для тебя</h1>
+  <div class="message" id="message">Привет! Это специальное сообщение для тебя.</div>
+
+  <audio id="audio" controls preload="metadata">
+    <source src="nfc/voice.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+  </audio>
+
+  <div class="hint">Приложи телефон к фигурке и нажми ▶ на аудиоплеере.</div>
+</div>
+
+<script>
+// МЕНЯЙ ТОЛЬКО ЭТИ 2 СТРОКИ
+const NAME = "Для тебя ❤️";
+const MESSAGE = "Привет! Это специальный подарок для тебя. Я сделал его с любовью! ❤️";
+
+document.getElementById("name").textContent = NAME;
+document.getElementById("message").textContent = MESSAGE;
+</script>
+</body>
+</html>
