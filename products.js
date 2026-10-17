@@ -91,14 +91,14 @@ const PRODUCTS = [
     img: 'images/printing.jpg',
     badge: 'На заказ',
     description: 'Создание и печать модели по вашей идее или готовому STL-файлу.'
-  }
+  },
   {
     id: 'kerambit',
     name: 'Керамбит CS:GO',
     cat: 'Аксессуары',
     meta: '3D-печать · декоративная модель',
     price: 80000,
-    img: 'images/kerambit.svg',
+    img: 'images/kerambit.svg?v=2',
     badge: 'Новинка',
     description: 'Декоративная 3D-модель керамбита по мотивам CS:GO. Цвет и размер уточняются при заказе.'
   },
